@@ -5,15 +5,17 @@ import axios from "axios";
 import { format } from "timeago.js";
 import { useContext } from "react";
 import { Context } from "../../context/Context";
+import API_URL  from '../../utils/config'
 export default function SinglePost() {
   const location = useLocation();
   let token=localStorage.getItem("blog-token")
   const path = location.pathname.split("/")[2];
   const [post, setPost] = useState({});
   const pf="https://blogapp-6huo.onrender.com/images/"
+
   useEffect(() => {
     const getPost = async () => {
-      const res = await axios.get("https://blogapp-6huo.onrender.com/post/" + path);
+      const res = await axios.get(`${API_URL}/post/` + path);
       console.log(res.data.msg);
        setPost(res.data.msg);
     };
@@ -28,7 +30,7 @@ export default function SinglePost() {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`https://blogapp-6huo.onrender.com/post/delete/${post._id}`,{
+      await axios.delete(`${API_URL}/post/delete/${post._id}`,{
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -39,7 +41,7 @@ export default function SinglePost() {
 
   const handleUpdate = async () => {
     try {
-      let res=await axios.put(`https://blogapp-6huo.onrender.com/post/update/${post._id}`,{title,desc}, {
+      let res=await axios.put(`${API_URL}/post/update/${post._id}`,{title,desc}, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

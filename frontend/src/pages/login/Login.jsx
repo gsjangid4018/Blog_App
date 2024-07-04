@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "../../context/Context";
+import API_URL from '../../utils/config'
 export default function Login() {
   const navigate=useNavigate()
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ export default function Login() {
   dispatch({type:"LOGIN_START"})
 
     try {
-      const res = await axios.post("https://blogapp-6huo.onrender.com/user/login", {
+      const res = await axios.post(`${API_URL}/user/login`, {
         email,
         password,
       })

@@ -3,6 +3,7 @@ import { Context } from "../../context/Context";
 import "./write.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API_URL from '../../utils/config'
 export default function Write() {
   let token=localStorage.getItem("blog-token")
   const navigate=useNavigate()
@@ -25,14 +26,14 @@ export default function Write() {
       data.append("file", file);
       newPost.photo = filename;
       try {
-        await axios.post("https://blogapp-6huo.onrender.com/upload", data);
+        await axios.post(`${API_URL}/upload`, data);
       } catch (err) {}
     }
 
 
 
     try {
-      const res = await axios.post("https://blogapp-6huo.onrender.com/post/create", newPost,{
+      const res = await axios.post(`${API_URL}/post/create`, newPost,{
         headers: {
             'Authorization': `Bearer ${token}`
           }

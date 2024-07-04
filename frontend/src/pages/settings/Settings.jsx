@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { Context } from "../../context/Context";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
+import API_URL from '../../utils/config'
 export default function Settings() {
   let token=localStorage.getItem("blog-token")
   const navigate=useNavigate()
@@ -31,7 +32,7 @@ export default function Settings() {
       data.append("file", file);
       updatedUser.photo = filename;
       try {
-        await axios.post("https://blogapp-6huo.onrender.com/upload", data);
+        await axios.post(`${API_URL}/upload`, data);
         
       } catch (err) {}
     }
@@ -39,7 +40,7 @@ export default function Settings() {
 
 
     try {
-      const res = await axios.put("https://blogapp-6huo.onrender.com/user/update/"+user._id, updatedUser,{
+      const res = await axios.put(`${API_URL}/user/update/${user._id}`, updatedUser,{
         headers: {
             'Authorization': `Bearer ${token}`
           }
